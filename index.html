@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+  <title>Random quote machine-JQuery</title>
+  <style>
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #text {
+    text-align: center;
+    font-size: 30px;
+  }
+  
+  #author {
+    margin-top: 20px;
+    text-align: right;
+    font-size: 20px;
+  }
+  
+  .text-primary {
+    margin-top: 50px;
+  }
+  
+  #quote-box {
+    width: 450px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    margin-top: 30px;
+  }
+  
+  #tweet-quote {
+    float: left;
+  }
+  
+  #new-quote {
+    padding: 10px 25px;
+    float: right;
+    font-size: 20px;
+  }
+  
+  footer {
+    margin-bottom: 20px;
+    color: white;
+  }
+  footer a {
+    color: blue;
+  }
+
+
+  </style>
+  
+  <link rel="stylesheet" href="main.css">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css'>
+<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+
+
+
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+
+</head>
+
+<body translate="no" >
+
+  <!--<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>-->
+
+<div class="container-fluid text-center">
+  <h2 class="text-primary">Motivational Quotes</h2>
+    <div id="quote-box">
+      <div class="quote">
+        <i class="fa fa-quote-left fa-3x"> </i><span id="text"></span>
+      </div>
+    <div id="author">
+    </div>
+ <a href="#" title="tweet this quote!" id="tweet-quote" target="_blank">
+   <button class="btn btn-info">
+     <i class="fa fa-twitter fa-3x" ></i>
+   </button></a>
+    <button id="new-quote" class="btn btn-primary" title="Generate new quote">New Quote</button>
+  </div>
+  <footer>
+    Created by<a href="https://codepen.io/Bartra/" style="text-decoration: none" target="_blank"> <strong>Segundo Bartra</strong></a>
+  </footer>
+</div>
+    <script src="//static.codepen.io/assets/common/stopExecutionOnTimeout-41c52890748cd7143004e05d3c5f786c66b19939c4500ce446314d1748483e13.js"></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/animateCSS/1.2.2/jquery.animatecss.min.js'></script>
+<script src='https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js'></script>
+  
+<script src="https://static.codepen.io/assets/editor/live/css_reload-2a5c7ad0fe826f66e054c6020c99c1e1c63210256b6ba07eb41d7a4cb0d0adab.js"></script>
+
+<script>
+
+    $(document).ready(function() {
+        $("*").addClass("animated bounce");
+        let randomNum;
+        let randomQuote;
+        let randomAuthor;
+        function getQuotes() {
+          //A array of quotes
+          let quoteText = [
+            "Only I can change my life.No one can do it for me",
+            "The Way To Get Started Is To Quit Talking And Begin Doing.",
+            "It’s Not Whether You Get Knocked Down, It’s Whether You Get Up.",
+            "Failure Will Never Overtake Me If My Determination To Succeed Is Strong Enough.",
+            "We Generate Fears While We Sit. We Overcome Them By Action.",
+            "Good, better, best. Never let it rest. 'Til your good is better and your better is best.",
+            "Set your goals high, and don't stop till you get there.",
+            "It does not matter how slowly you go as long as you do not stop.",
+            "If you can dream it, you can do it."
+          ];
+          //A array of the author of the quotes in order
+          let quoteAuthor = [
+            "-Carol Burnett",
+            "-Walt Disney",
+            "-Vince Lombardi",
+            "-Og Mandino",
+            "-Dr. Henry Link",
+            "-St. Jerome",
+            "-Bo Jackson",
+            "-Confucius",
+            "-Walt Disney"
+          ];
+          //A array of colors
+          let colors = [
+            "#342224",
+            "#472E32",
+            "#BDBB99",
+            "#77B1A9",
+            "#73A857",
+            "#9CFF33",
+            "#FF5233",
+            "#33FFEC",
+            "#E033FF",
+            "#33B8FF"
+          ];
+      
+          /*Generate a random index number from the
+          quoteText variable*/
+          randomNum = Math.floor(Math.random() * quoteText.length);
+          randomQuote = quoteText[randomNum];
+          randomAuthor = quoteAuthor[randomNum];
+      
+          /*Push the text of the quote and the author
+          to its html div*/
+          $("#text").text(randomQuote);
+          $("#author").text(randomAuthor);
+      
+          //Select random colors for html body and text
+          let color = Math.floor(Math.random() * colors.length);
+          //Animate the body colors
+          $("body").animate(
+            {
+              backgroundColor: colors[color],
+              color: colors[color]
+            },
+            1000
+          );
+          //Animate the text in the text box
+          $("#text").animate({ opacity: 0 }, 500, function() {
+            $(this).animate({ opacity: 1 }, 500);
+          });
+          //Animate the text in the author box
+          $("#author").animate({ opacity: 0 }, 500, function() {
+            $(this).animate({ opacity: 1 }, 500);
+          });
+        };
+        //Call the fuction getQuotes to display quote on first load
+        getQuotes();
+        //then on click display new quote
+        $("#new-quote").on("click", function() {
+          getQuotes();
+        });
+        //Tweet the quote
+        $("#tweet-quote").on("click", function() {
+          window.open(
+            "https://twitter.com/intent/tweet?text=" +
+              randomQuote + " " + randomAuthor
+          );
+        });
+      });
+    
+    </script>
+
+
+</body>
+
+</html>
